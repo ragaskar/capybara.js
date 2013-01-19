@@ -1,0 +1,1 @@
+var Capybara={};(function(){Capybara.Page=function(e){var t=$(e);return{fillIn:function(t){var n=$("label:contains("+t+")",e),r=$("#"+n.attr("for"),e).add($("input",n)).first();if(!n.length)throw"Label with text '"+t+"' not found in "+e.html();if(!r.length)throw"Input for label '"+t+"' not found in "+e.html();return{"with":function(e){r.val(e)}}}}}})();

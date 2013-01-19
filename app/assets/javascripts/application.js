@@ -12,5 +12,3 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require capybara
-//= require_tree .
