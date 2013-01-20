@@ -1,7 +1,7 @@
 (function() {
   Capybara.Page = function(html) {
     var $html = $(html);
-    return {
+    return $html.extend({
       fillIn: function(labelName) {
         var label = $('label:contains(' +labelName + ')', html),
         input = $('#' + label.attr('for'), html).add($('input', label)).first();
@@ -17,6 +17,6 @@
           }
         }
       }
-    };
+    });
   }
 }());

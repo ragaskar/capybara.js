@@ -1,4 +1,9 @@
 describe("Page", function() {
+  it("returns a jquery object", function() {
+    var html = $('<div>'),
+    page = new Capybara.Page(html);
+    expect(page).toBe(html);
+  });
   describe("fillIn", function() {
     it("fills in a given text field by label text when label[for] is used", function() {
       var html = $('<div><label for="my_field_1">My First Field</label><input id="my_field_1" /></div>');
