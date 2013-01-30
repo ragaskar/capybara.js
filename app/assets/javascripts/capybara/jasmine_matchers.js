@@ -1,0 +1,2 @@
+Capybara.JasmineMatchers = {};
+
