@@ -4,6 +4,58 @@ describe("Page", function() {
     page = new Capybara.Page(html);
     expect(page).toBe(html);
   });
+  describe("clickButton", function() {
+    it("clicks the given button by id", function() {
+      var html = '<div><button id="my_first_field" /></div>';
+      page = new Capybara.Page(html),
+      clickSpy = jasmine.createSpy('clickSpy');
+      $('button', page).click(clickSpy)
+      expect(clickSpy).not.toHaveBeenCalled();
+      page.clickButton('my_first_field')
+      expect(clickSpy).toHaveBeenCalled();
+    });
+    it("clicks the given button by value", function() {
+      var html = '<div><button value="my_first_field" /></div>';
+      page = new Capybara.Page(html),
+      clickSpy = jasmine.createSpy('clickSpy');
+      $('button', page).click(clickSpy)
+      expect(clickSpy).not.toHaveBeenCalled();
+      page.clickButton('my_first_field')
+      expect(clickSpy).toHaveBeenCalled();
+    });
+    it("clicks the given button by text", function() {
+      var html = '<div><button>My First Field</button></div>';
+      page = new Capybara.Page(html),
+      clickSpy = jasmine.createSpy('clickSpy');
+      $('button', page).click(clickSpy)
+      expect(clickSpy).not.toHaveBeenCalled();
+      page.clickButton('My First Field')
+      expect(clickSpy).toHaveBeenCalled();
+    });
+    it("clicks the given submit by id", function() {
+      var html = '<div><input type="submit" id="my_first_field" /></div>';
+      page = new Capybara.Page(html),
+      clickSpy = jasmine.createSpy('clickSpy');
+      $('input', page).click(clickSpy)
+      expect(clickSpy).not.toHaveBeenCalled();
+      page.clickButton('my_first_field')
+      expect(clickSpy).toHaveBeenCalled();
+    });
+    it("clicks the given submit by value", function() {
+      var html = '<div><input type="submit" value="my_first_field" /></div>';
+      page = new Capybara.Page(html),
+      clickSpy = jasmine.createSpy('clickSpy');
+      $('input', page).click(clickSpy)
+      expect(clickSpy).not.toHaveBeenCalled();
+      page.clickButton('my_first_field')
+      expect(clickSpy).toHaveBeenCalled();
+    });
+    it("raises if the button can't be found", function() {
+      var html = '<div><button /></div>';
+      page = new Capybara.Page(html);
+      expect(function() { page.clickButton('My First Field') }).toThrow();
+    });
+  });
   describe("fillIn", function() {
     it("fills in a given text field by id", function() {
       var html = '<div><input id="my_first_field" /></div>';

@@ -16,6 +16,18 @@ Capybara.Page = function(html) {
           input.val(val);
         }
       }
+    },
+    clickButton: function(locator) {
+      var buttonById = $('button#' + locator, $html),
+      buttonByValue = $('button[value=\'' + locator +'\']', $html),
+      inputById = $('input#' + locator + '[type=\'submit\']', $html),
+      inputByValue = $('input[type=\'submit\'][value=\'' + locator + '\']', $html),
+      buttonByText = $('button:contains(' +locator + ')', $html),
+      button = buttonById.add(buttonByValue).add(inputById).add(inputByValue).add(buttonByText).first();
+      if (!button.length) {
+        throw "Button for '" + locator + "' not found in " + $html.html();
+      }
+      button.click();
     }
   });
 }
