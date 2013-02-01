@@ -3,7 +3,7 @@ Capybara.Page = function(html) {
   return $html.extend({
     fillIn: function(locator) {
       var label = $('label:contains(' +locator + ')', $html),
-      inputById = $('input#' + locator, $html),
+      inputById = $('input#' + safeId(locator), $html),
       inputByName = $('input[name=\'' + locator + '\']', $html),
       inputByLabelWithFor = $('#' + label.attr('for'), $html),
       inputByLabelWithoutFor = $('input', label),
@@ -18,9 +18,9 @@ Capybara.Page = function(html) {
       }
     },
     clickButton: function(locator) {
-      var buttonById = $('button#' + locator, $html),
+      var buttonById = $('button#' + safeId(locator), $html),
       buttonByValue = $('button[value=\'' + locator +'\']', $html),
-      inputById = $('input#' + locator + '[type=\'submit\']', $html),
+      inputById = $('input#' + safeId(locator) + '[type=\'submit\']', $html),
       inputByValue = $('input[type=\'submit\'][value=\'' + locator + '\']', $html),
       buttonByText = $('button:contains(' +locator + ')', $html),
       button = buttonById.add(buttonByValue).add(inputById).add(inputByValue).add(buttonByText).first();
@@ -30,4 +30,8 @@ Capybara.Page = function(html) {
       button.click();
     }
   });
+
+  function safeId(locator) {
+    return locator.replace('!', '');
+  }
 }

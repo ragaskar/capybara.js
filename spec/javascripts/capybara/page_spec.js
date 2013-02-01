@@ -24,12 +24,12 @@ describe("Page", function() {
       expect(clickSpy).toHaveBeenCalled();
     });
     it("clicks the given button by text", function() {
-      var html = '<div><button>My First Field</button></div>';
+      var html = '<div><button>My First Field!</button></div>';
       page = new Capybara.Page(html),
       clickSpy = jasmine.createSpy('clickSpy');
       $('button', page).click(clickSpy)
       expect(clickSpy).not.toHaveBeenCalled();
-      page.clickButton('My First Field')
+      page.clickButton('My First Field!')
       expect(clickSpy).toHaveBeenCalled();
     });
     it("clicks the given submit by id", function() {
@@ -72,10 +72,10 @@ describe("Page", function() {
       expect($('input', page).val()).toBe('Foobar');
     });
     it("fills in a given text field by label text when label[for] is used", function() {
-      var html = '<div><label for="my_field_1">My First Field</label><input id="my_field_1" /></div>';
+      var html = '<div><label for="my_field_1">My First Field!</label><input id="my_field_1" /></div>';
       page = new Capybara.Page(html);
       expect($('#my_field_1', page).val()).toBe('');
-      page.fillIn('My First Field').with('Foobar');
+      page.fillIn('My First Field!').with('Foobar');
       expect($('#my_field_1', page).val()).toBe('Foobar');
     });
     it("fills in a given text field by label text when input is nested inside of label", function() {
