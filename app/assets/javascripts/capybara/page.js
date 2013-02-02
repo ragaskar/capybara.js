@@ -1,5 +1,10 @@
 Capybara.Page = function(html) {
   var $html = $(html);
+
+  function safeId(locator) {
+    return locator.replace('!', '');
+  }
+
   return $html.extend({
     fillIn: function(locator) {
       var label = $('label:contains(' +locator + ')', $html),
@@ -15,7 +20,7 @@ Capybara.Page = function(html) {
         with: function(val) {
           input.val(val);
         }
-      }
+      };
     },
     clickButton: function(locator) {
       var buttonById = $('button#' + safeId(locator), $html),
@@ -31,7 +36,4 @@ Capybara.Page = function(html) {
     }
   });
 
-  function safeId(locator) {
-    return locator.replace('!', '');
-  }
-}
+};

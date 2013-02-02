@@ -1,1 +1,1 @@
-task :default => ["jasmine:ci"]
+task :default => ['jslint','jasmine:ci']
