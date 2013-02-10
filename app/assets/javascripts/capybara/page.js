@@ -33,6 +33,9 @@ Capybara.Page = function(html) {
         throw "Button for '" + locator + "' not found in " + $html.html();
       }
       button.click();
+    },
+    isPage: function() {
+      return true;
     }
   });
 
