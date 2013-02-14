@@ -17,12 +17,12 @@ describe("Capybara.JasmineMatchers.toHaveContent", function() {
   it("fails when there is no match", function() {
     var actual = $("<div>The quick brown fox jumped over the lazy dog.</div>"),
     context = {actual: actual};
-    expect(Capybara.JasmineMatchers.toHaveContent.call(context, 'jumped under the')).toBe(true);
+    expect(Capybara.JasmineMatchers.toHaveContent.call(context, 'jumped under the')).toBe(false);
   });
   it("sets message correctly when failure occurs", function() {
     var actual = $("<div>The quick brown fox jumped over the lazy dog.</div>"),
     context = {actual: actual};
-    expect(Capybara.JasmineMatchers.toHaveContent.call(context, 'jumped under the')).toBe(true);
+    expect(Capybara.JasmineMatchers.toHaveContent.call(context, 'jumped under the')).toBe(false);
     expect(context.message()[0]).toMatch("Expected .* to have content 'jumped under the'");
   });
   it("sets message correctly when inverted with not and there is a match", function() {

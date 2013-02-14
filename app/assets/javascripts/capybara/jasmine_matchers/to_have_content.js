@@ -6,5 +6,5 @@ Capybara.JasmineMatchers.toHaveContent = function(text) {
       "Expected " + $(this.actual).outerHtml + " not to have content '" + text + "'"
     ];
   };
-  return regex.test(text);
+  return regex.test(this.actual.text().replace(/\n/g, ''));
 };
