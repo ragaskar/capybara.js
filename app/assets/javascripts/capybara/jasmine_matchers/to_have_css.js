@@ -5,8 +5,8 @@ Capybara.JasmineMatchers.toHaveCss = function(selector) {
       return [msg, msg];
     }
     return [
-      "Expected " + $(this.actual).outerHtml + " to have css '" + selector + "'",
-      "Expected " + $(this.actual).outerHtml + " not to have css '" + selector + "'"
+      "Expected " + $(this.actual).html() + " to have css '" + selector + "'",
+      "Expected " + $(this.actual).html() + " not to have css '" + selector + "'"
     ];
   };
   if (!this.actual.isPage || !this.actual.isPage()) {
