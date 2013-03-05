@@ -18,7 +18,9 @@ Capybara.Page = function(html) {
       }
       return {
         with: function(val) {
-          input.val(val);
+          var existingVal = input.val();
+          input.trigger('focus').val(val).trigger('blur');
+          if (existingVal !== val) { input.trigger('change'); }
         }
       };
     },

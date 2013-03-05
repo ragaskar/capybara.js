@@ -64,6 +64,38 @@ describe("Page", function() {
       page.fillIn('my_first_field').with('Foobar');
       expect($('input', page).val()).toBe('Foobar');
     });
+    it("triggers events properly on the field", function() {
+      var html = '<div><input id="my_first_field" /></div>',
+      page = new Capybara.Page(html),
+      callOrder = [],
+      callOrderCallback = function(string) { return function() { callOrder.push(string); }; },
+      focusSpy = jasmine.createSpy('focus').andCallFake(function() {
+        expect($('input#my_first_field', page).val()).toBe('');
+        callOrderCallback('focus')();
+      }),
+      changeSpy = jasmine.createSpy('change').andCallFake(callOrderCallback('change')),
+      blurSpy = jasmine.createSpy('blur').andCallFake(callOrderCallback('blur'));
+      $('input', page).on('focus', focusSpy);
+      $('input', page).on('change', changeSpy);
+      $('input', page).on('blur', blurSpy);
+      expect(changeSpy).not.toHaveBeenCalled();
+      expect(focusSpy).not.toHaveBeenCalled();
+      expect(blurSpy).not.toHaveBeenCalled();
+      page.fillIn('my_first_field').with('Foobar');
+      expect(changeSpy).toHaveBeenCalled();
+      expect(focusSpy).toHaveBeenCalled();
+      expect(blurSpy).toHaveBeenCalled();
+      expect(callOrder).toEqual(['focus', 'blur', 'change']);
+    });
+    it('only triggers change if value is changed', function() {
+      var html = '<div><input id="my_first_field" value="Foobar"/></div>',
+      page = new Capybara.Page(html),
+      changeSpy = jasmine.createSpy('change');
+      $('input', page).on('change', changeSpy);
+      expect(changeSpy).not.toHaveBeenCalled();
+      page.fillIn('my_first_field').with('Foobar');
+      expect(changeSpy).not.toHaveBeenCalled();
+    });
     it("fills in a given text field by name", function() {
       var html = '<div><input name="my_first_field" /></div>',
       page = new Capybara.Page(html);
